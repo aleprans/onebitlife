@@ -19,7 +19,7 @@ export default function StatusBar(){
                     source={require('../../../assets/icons/moneyIcon.png')}
                     style={estilo.icon}
                 />
-                <ProgressBar progress={1} color={'#85bb65'} style={estilo.progress} />
+                <ProgressBar progress={0} color={'#85bb65'} style={estilo.progress} />
             </View>
 
             <View estyle={estilo.statusBarContainer}>
@@ -27,7 +27,7 @@ export default function StatusBar(){
                     source={require('../../../assets/icons/bodyIcon.png')}
                     style={estilo.icon}
                 />
-                <ProgressBar progress={1} color={'#ff0043'} style={estilo.progress} />
+                <ProgressBar progress={0} color={'#ff0043'} style={estilo.progress} />
             </View>
 
             <View estyle={estilo.statusBarContainer}>
@@ -35,7 +35,7 @@ export default function StatusBar(){
                     source={require('../../../assets/icons/funIcon.png')}
                     style={estilo.icon}
                 />
-                <ProgressBar progress={1} color={'#fe7f23'} style={estilo.progress} />
+                <ProgressBar progress={0} color={'#fe7f23'} style={estilo.progress} />
             </View>
         </View>
     )
