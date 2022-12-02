@@ -6,6 +6,8 @@ import SelectHabit from "../../Compponents/HabitPage/SelectHabit";
 import SelectFrequency from "../../Compponents/HabitPage/SelectFrequency";
 import Notification from "../../Compponents/HabitPage/Notification";
 import TimeDatePicker from "../../Compponents/HabitPage/DateTimePicker";
+import UpdateExcludeButton from "../../Compponents/HabitPage/UpdateExcludeButton";
+import DefaultButton from "../../Compponents/Common/DefaultButton";
 
 export default function HabitPage({ route }) {
 
@@ -17,6 +19,54 @@ export default function HabitPage({ route }) {
     const [timeNotification, setTimeNotification] = useState()
 
     const {create, habit} = route.params
+
+    function handleCreateHabit(){
+        if( 
+            habitInput === undefined || 
+            frequencyInput === undefined)
+            {
+            Alert.alert(
+                `Você precisa selecionar um habito e uma frequencia para ${'\n'}continuar`
+            )
+        }else if (
+            notificationToggle === true && 
+            frequencyInput === "Diário" && 
+            timeNotification === undefined)
+            {
+            Alert.alert(
+                "Você precisa dizer o horário da notificação"
+            )
+        }else if(
+            notificationToggle === true && 
+            frequencyInput === "Diário" &&
+            dayNotification === undefined &&
+            timeNotification === undefined)
+            {
+            Alert.alert(
+                "Você precisa dizer a frequência e o horário da notificação"
+            )
+        }else {
+            navigation.navigate("Home", {
+                createHabit: `Created in ${habit?.habitArea}`
+            })
+        }
+    }
+    
+    function handleUpdateHabit(){
+        if(
+            notificationToggle === true &&
+            !dayNotification &&
+            !timeNotification
+        ){
+            Alert.alert(
+                "Você precisa colocar a frequência e horário da notificação"
+            )
+        }else {
+            navigation.navigate('Home', {
+                updateHabit: `Update in ${habit?.habitArea}`
+            })
+        }
+    }
 
     return (
         <View style={estilo.container}>
@@ -61,6 +111,22 @@ export default function HabitPage({ route }) {
                                 />
                             )
                         ): null}
+                        {create === false ? (
+                            <UpdateExcludeButton
+                                handleUpdate={handleUpdateHabit}
+                                habitArea={habitArea}
+                                habitInput={habitInput}
+                            />
+                        ) : (
+                            <View style={estilo.configButton}>
+                                <DefaultButton
+                                    buttonText={'Criar'}
+                                    handlePress={handleCreateHabit}
+                                    width={250}
+                                    height={50}
+                                />
+                            </View>
+                        )}
                     </View>
                 </View>
             </ScrollView>
