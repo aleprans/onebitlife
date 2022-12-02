@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import SelectHabit from "../../Compponents/HabitPage/SelectHabit";
 import SelectFrequency from "../../Compponents/HabitPage/SelectFrequency";
+import Notification from "../../Compponents/HabitPage/Notification";
 
 export default function HabitPage({ route }) {
 
     const navigation = useNavigation();
     const [habitInput, setHabitInput] = useState()
     const [frequencyInput, setFrequencyInput] = useState()
+    const [notificationToggle, setNotificationToggle] = useState()
     const {create, habit} = route.params
 
     return (
@@ -38,6 +40,12 @@ export default function HabitPage({ route }) {
                             habitFrequency={habit?.habitFrequency}
                             frequencyInput={setFrequencyInput}
                         />
+                        {frequencyInput === "Mensal" ? null : (
+                            <Notification
+                                notificationToggle={notificationToggle}
+                                setNotificationToggle={setNotificationToggle}
+                            />
+                        )}
                         
                     </View>
                 </View>
