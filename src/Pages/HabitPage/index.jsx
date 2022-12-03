@@ -8,6 +8,7 @@ import Notification from "../../Compponents/HabitPage/Notification";
 import TimeDatePicker from "../../Compponents/HabitPage/DateTimePicker";
 import UpdateExcludeButton from "../../Compponents/HabitPage/UpdateExcludeButton";
 import DefaultButton from "../../Compponents/Common/DefaultButton";
+import HabitsService from '../../Services/HabitsService';
 
 export default function HabitPage({ route }) {
 
@@ -19,6 +20,9 @@ export default function HabitPage({ route }) {
     const [timeNotification, setTimeNotification] = useState()
 
     const {create, habit} = route.params
+
+    const habitCreated = new Date()
+    const formatDate = `${habitCreated.getFullYear()}-${habitCreated.getMonth().toString().padStart(2, "0")}-${habitCreated.getDate.toString().padStart(2,"0")}`
 
     function handleCreateHabit(){
         if( 
@@ -46,8 +50,22 @@ export default function HabitPage({ route }) {
                 "Você precisa dizer a frequência e o horário da notificação"
             )
         }else {
-            navigation.navigate("Home", {
-                createHabit: `Created in ${habit?.habitArea}`
+            HabitsService.createHabit({
+                habitArea: habit?.habitArea,
+                habitName: habit?.habitInput,
+                habitFrequency: habit?.frequencyInput, 
+                habitHasNotification: habit?.notificationToggle, 
+                habitNotificationFrequency: habit?.dayNotification, 
+                habitNotificationTime: habit?.timeNotification, 
+                lastCheck: formatDate,
+                daysWithOutChecks: 0, 
+                progressBar: 1, 
+            })
+            .then(()=>{
+                Alert.alert("Sucesso na criação do hábito!")
+                navigation.navigate("Home", {
+                    createHabit: `Created in ${habit?.habitArea}`
+                })
             })
         }
     }
