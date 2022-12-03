@@ -2,8 +2,8 @@ import db from "../DataBase";
 
 db.transaction((tx) => {
     tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS change_navigation (id INTEGER PRIMARY KEY AUTOINCREMENT, showHome TEXT, appStartData TEXT);",
-        // "SELECT * FROM change_navigation;",
+        "CREATE TABLE IF NOT EXISTS change_navigation (id INTEGER PRIMARY KEY AUTOINCREMENT, showHome TEXT NOT NULL, appStartData TEXT NOT NULL);",
+        // "DROP TABLE change_navigation;",
         [],
         (result,error) => {
             // console.log(result)
@@ -27,12 +27,13 @@ const setShowHome = (obj)=>{
             })
         })
     })
+    // console.log("obj:" +obj)
 }
 
 const checkShowHome = (id)=>{
     return new Promise((resolve, reject) => {
         db.transaction((tx) => {
-            tx.executeSql("SELECT * FROM change_navigation WHERE id = ?;",
+            tx.executeSql("SELECT * FROM change_navigation WHERE id = ? ;",
             [id],
             (_,{rows})=>{
                 if(rows.length > 0 ){
@@ -40,7 +41,7 @@ const checkShowHome = (id)=>{
                 }else {reject("Obj not found: id = " +id)}
             },
             (_,error)=>{
-                reject(error)
+                reject("err: "+error)
             })
         })
     })

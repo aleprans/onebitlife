@@ -6,14 +6,27 @@ import LifeStatus from '../../Compponents/Common/LifeStatus'
 import StatusBar from "../../Compponents/Home/StatusBar";
 import CreateHabit from "../../Compponents/Home/CreateHabit";
 import EditHabit from "../../Compponents/Home/EditHabit";
+import ChangeNavigationService from '../../Services/ChangeNavigationService'
 
-export default function Home(){
+export default function Home({ route }){
 
     const navigator = useNavigation()
     const [mindHabit, setMindHabit] = useState()
     const [moneyHabit, setMoneyHabit] = useState()
     const [bodyHabit, setBodyHabit] = useState()
     const [funHabit, setFunHabit] = useState()
+    const [robotDaysLife, setRobotDaysLife] = useState()
+    const today = new Date()
+
+    useEffect(() =>{
+        ChangeNavigationService.checkShowHome(1)
+        .then((showHome) => {
+            const formDate = `${today.getFullYear()}-${today.getMonth().toString().padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`
+            const checkDays = new Date(formDate) - new Date(showHome.appStartData) +1
+            setRobotDaysLife(checkDays.toString().padStart(2, "0"))
+        })
+        .catch((err) => {console.log("er: "+err)})
+    },[route.params])
 
     function handleNavExplanation(){
         navigator.navigate('AppExplanation')
@@ -23,7 +36,7 @@ export default function Home(){
         <View style={estilo.container}>
             <ScrollView>
                 <View style={{alignItems: 'center'}}>
-                    <Text style={estilo.dailyChecks}> 20 dias / 80 checks</Text>
+                    <Text style={estilo.dailyChecks}>❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"} - ✔️ 80 checks</Text>
                     <LifeStatus />
                     <StatusBar />
                     {mindHabit ? (

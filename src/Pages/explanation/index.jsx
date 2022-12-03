@@ -10,8 +10,8 @@ export default function AppExplanation() {
 
     const navigator = useNavigation()
     const [showHome, setShowHome] = useState("false")
-    const startDate = new Date()
-    const appStartDate = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
+    const startData = new Date()
+    const appStartData = `${startData.getFullYear()}-${startData.getMonth().toString().padStart(2, "0")}-${startData.getDate().toString().padStart(2, "0")}`
 
 
     function handleNavHome(){
@@ -20,7 +20,7 @@ export default function AppExplanation() {
 
     async function handleSetShowHome(){
         if(showHome !== "true"){
-            await ChangeNavigationService.setShowHome({ showHome: "true", appStartDate})
+            await ChangeNavigationService.setShowHome({ showHome: "true", appStartData})
             .then((insertId) => console.log(`Sucesso! ${insertId}`))
             .catch((error)=> console.log(`Er: ${error}`))
             setShowHome("true")
