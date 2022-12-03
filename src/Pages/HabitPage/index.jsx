@@ -22,7 +22,7 @@ export default function HabitPage({ route }) {
     const {create, habit} = route.params
 
     const habitCreated = new Date()
-    const formatDate = `${habitCreated.getFullYear()}-${habitCreated.getMonth().toString().padStart(2, "0")}-${habitCreated.getDate.toString().padStart(2,"0")}`
+    const formatDate = `${habitCreated.getFullYear()}-${habitCreated.getMonth().toString().padStart(2, "0")}-${habitCreated.getDate().toString().padStart(2,"0")}`
 
     function handleCreateHabit(){
         if( 
@@ -52,17 +52,17 @@ export default function HabitPage({ route }) {
         }else {
             HabitsService.createHabit({
                 habitArea: habit?.habitArea,
-                habitName: habit?.habitInput,
-                habitFrequency: habit?.frequencyInput, 
-                habitHasNotification: habit?.notificationToggle, 
-                habitNotificationFrequency: habit?.dayNotification, 
-                habitNotificationTime: habit?.timeNotification, 
+                habitName: habitInput,
+                habitFrequency: frequencyInput, 
+                habitHasNotification: notificationToggle, 
+                habitNotificationFrequency: dayNotification, 
+                habitNotificationTime: timeNotification, 
                 lastCheck: formatDate,
                 daysWithOutChecks: 0, 
                 progressBar: 1, 
             })
-            .then(()=>{
-                Alert.alert("Sucesso na criação do hábito!")
+            .then((id)=>{
+                Alert.alert(`Sucesso na criação do hábito! ${id}`)
                 navigation.navigate("Home", {
                     createHabit: `Created in ${habit?.habitArea}`
                 })

@@ -2,7 +2,8 @@ import db from "../DataBase";
 
 db.transaction((tx) => {
     tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS habits (id INTEGER PRIMARY KEY AUTOINGREMENT, habitArea TEXT, habitName TEXT, habitFrequency TEXT, habitHasNotification BOOLEAN, habitNotificationFrequency TEXT, habitNotificationTime TEXT, lastCheck TEXT, daysWithOutChecks INTEGER, progressBar INTEGER, habitIsCheked BOOLEAN, habitCheks INTEGER;",
+        "CREATE TABLE IF NOT EXISTS habits (id INTEGER PRIMARY KEY AUTOINCREMENT, habitArea TEXT, habitName TEXT, habitFrequency TEXT, habitHasNotification BOOLEAN, habitNotificationFrequency TEXT, habitNotificationTime TEXT, lastCheck TEXT, daysWithOutChecks INTEGER, progressBar INTEGER, habitIsCheked BOOLEAN, habitCheks INTEGER);",
+        // "DROP TABLE habits;",
         [],
         (_,error) => {
             console.log(error)
@@ -11,11 +12,10 @@ db.transaction((tx) => {
 })
 
 const createHabit = (obj) => {
-
     return new Promise((resolve, reject)=>{
         db.transaction((tx)=>{
             tx.executeSql(
-                "INSERT INTO habits (habitArea, habitName, habitFrequency, habitHasNotification, habitNotificationFrequency, habitNotificationTime, lastCheck, daysWithOutChecks, progressBar, habitIsCheked, habitCheks) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+                "INSERT INTO habits (habitArea, habitName, habitFrequency, habitHasNotification, habitNotificationFrequency, habitNotificationTime, lastCheck, daysWithOutChecks, progressBar) values (?, ?, ?, ?, ?, ?, ?, ?, ?);",
                 [
                     obj.habitArea,
                     obj.habitName,
@@ -25,9 +25,7 @@ const createHabit = (obj) => {
                     obj.habitNotificationTime, 
                     obj.lastCheck,
                     obj.daysWithOutChecks, 
-                    obj.progressBar, 
-                    obj.habitIsCheked, 
-                    obj.habitChek
+                    obj.progressBar
                 ],
                 (_,{rowsAffected, insertId})=>{
                     if(rowsAffected > 0 ){
@@ -45,7 +43,6 @@ const createHabit = (obj) => {
 }
 
 const findByArea = (habitArea)=>{
-
     return new Promise((resolve, reject)=>{
         db.transaction((tx)=>{
             tx.executeSql(
