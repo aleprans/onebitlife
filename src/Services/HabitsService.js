@@ -74,14 +74,28 @@ const updateHabit = (obj)=>{
                     if(rowsAffected > 0 ) resolve(rowsAffected)
                     else reject("Error update Obj")
                 },
-                (_,error)=>{reject(error)}
+                (_,error)=>reject(error)
             )
         })
     })
 }
 
-
+const deleteHabit = (habitArea) => {
+    return new Promise((resolve, reject)=>{
+        db.transaction((tx)=>{
+            tx.executeSql(
+                "DELETE FROM habits WHERE habitArea = ?",
+                [habitArea],
+                (_,{ rowsAffected })=>{
+                    if(rowsAffected > 0) resolve(rowsAffected)
+                    else reject("Error delete Obj")
+                },
+                (_,error)=>reject(error)
+            )
+        })
+    })
+}
 
 export default {
-    createHabit, findByArea, updateHabit
+    createHabit, findByArea, updateHabit, deleteHabit
 }
