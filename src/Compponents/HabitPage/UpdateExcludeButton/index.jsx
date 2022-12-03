@@ -14,13 +14,14 @@ export default function UpdateExcludeButton({
     const Navigation = useNavigation()
 
     function handleDeleteHabit(){
-        Navigation.navigate('Home', {
-            excludeArea: `${habitArea}`
+        HabitsService.deleteHabit(habitArea)
+        .then(()=>{
+            Alert.alert("Hábito excluido com sucesso!")
+            Navigation.navigate('Home', {
+                excludeArea: `${habitArea}`
+            })
         })
-    }
-
-    function handleUpdateHabit(){
-        console.log(handlePress)
+        .catch((error)=> console.log(error))
     }
 
     return (

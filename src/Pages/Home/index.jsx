@@ -37,6 +37,13 @@ export default function Home({ route }){
             setFunHabit(fun[0])
         })
 
+        if(excludeArea){
+            if(excludeArea == "Mente")setMindHabit(null)
+            if(excludeArea == "Financeiro")setMoneyHabit(null)
+            if(excludeArea == "Corpo")setBodyHabit(null)
+            if(excludeArea == "Humor")setFunHabit(null)
+        }
+
         ChangeNavigationService.checkShowHome(1)
         .then((showHome) => {
             const formDate = `${today.getFullYear()}-${today.getMonth().toString().padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`
@@ -49,6 +56,8 @@ export default function Home({ route }){
     function handleNavExplanation(){
         navigator.navigate('AppExplanation')
     }
+
+    const excludeArea = route.params?.excludeArea
 
     return(
         <View style={estilo.container}>
@@ -89,11 +98,6 @@ export default function Home({ route }){
                     ) : (
                         <CreateHabit habitArea="Humor" borderColor="#fe7f23" />
                         )}
-
-
-
-
-
                 </View>
                 <Text 
                     style={estilo.explanationText}
