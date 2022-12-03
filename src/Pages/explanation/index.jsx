@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import DefaultButton from "../../Compponents/Common/DefaultButton";
 import ExplanationCard from '../../Compponents/explanation/explanationCard';
 import { useNavigation } from '@react-navigation/native'
+import ChangeNavigationService from "../../Services/ChangeNavigationService";
 
 
 export default function AppExplanation() {
 
     const navigator = useNavigation()
+    const [showHome, setShowHome] = useState("false")
+    const startDate = new Date()
+    const appStartDate = `${startDate.getFullYear()}-${startDate.getMonth() + 1}-${startDate.getDate()}`
+
 
     function handleNavHome(){
         navigator.navigate('Home')
+    }
+
+    async function handleSetShowHome(){
+        if(showHome !== "true"){
+            await ChangeNavigationService.setShowHome({ showHome: "true", appStartDate})
+            .then((insertId) => console.log(`Sucesso! ${insertId}`))
+            .catch((error)=> console.log(`Er: ${error}`))
+            setShowHome("true")
+            handleNavHome()
+        }
     }
 
     return(
@@ -29,7 +44,7 @@ export default function AppExplanation() {
                     </Text>
                     <DefaultButton
                         buttonText={'Continuar'}
-                        handlePress={handleNavHome}
+                        handlePress={handleSetShowHome}
                         width={250}
                         height={50}
                     />
