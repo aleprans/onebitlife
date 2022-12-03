@@ -4,8 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function EditHabit({habit, checkColor}){
 
+    const navigation = useNavigation()
+
     function handleEdit(){
-        console.log('Botão de editar')
+        navigation.navigate('HabitPage',{
+            create: false,
+            habit: habit 
+        })
     }
 
     function handleCheck(){

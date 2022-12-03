@@ -2,12 +2,14 @@ import React from "react";
 import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { useNavigation }from '@react-navigation/native';
+import HabitsService from "../../../Services/HabitsService";
 
-export default function UpdateExcludeButton(
+
+export default function UpdateExcludeButton({
     habitInput,
-    handleUpdate,
+    handlePress,
     habitArea
-){
+}){
 
     const Navigation = useNavigation()
 
@@ -16,6 +18,11 @@ export default function UpdateExcludeButton(
             excludeArea: `${habitArea}`
         })
     }
+
+    function handleUpdateHabit(){
+        console.log(handlePress)
+    }
+
     return (
         <View style={estilo.container}>
             <TouchableOpacity
@@ -31,11 +38,12 @@ export default function UpdateExcludeButton(
                             },
                             {
                                 text: "Atualizar",
-                                onPress: handleUpdate
+                                onPress : handlePress
                             }
                         ]
                     )
                 }}
+                
                 >
                     <Text style={estilo.updateButtonText}>Atualizar</Text>
             </TouchableOpacity>
