@@ -21,7 +21,7 @@ export default function TimeDatePicker({
 
     const onChange = (_, selectDate) => {
         const currentDate = selectDate || date
-        setShow(Platform.os === "ios")
+        setShow(Platform.OS === "ios")
         setDate(currentDate)
         let tempDate = new Date(currentDate)
         const notificationHour = tempDate.getHours().toString().padStart(2, "0")
@@ -31,7 +31,7 @@ export default function TimeDatePicker({
         if(frequency === "Semanal"){
             dateNotification = selected
         }
-        const timeNotification = `${notificationHour}: ${notificationMin}`
+        const timeNotification = `${notificationHour}:${notificationMin}`
 
         setNotificationDate(dateNotification)
         setNotificationTime(timeNotification)
@@ -49,13 +49,13 @@ export default function TimeDatePicker({
     }
 
     const data = [
-        {key: 'Dom', value: 'Domingo'},
-        {key: 'Seg', value: 'Segunda'},
-        {key: 'Ter', value: 'Terça'},
-        {key: 'Qua', value: 'Quarta'},
-        {key: 'Qui', value: 'Quinta'},
-        {key: 'Sex', value: 'Sexta'},
-        {key: 'Sab', value: 'Sabado'}
+        {key: 'Domingo', value: 'Dom'},
+        {key: 'Segunda', value: 'Seg'},
+        {key: 'Terça', value: 'Ter'},
+        {key: 'Quarta', value: 'Qua'},
+        {key: 'Quinta', value: 'Qui'},
+        {key: 'Sexta', value: 'Sex'},
+        {key: 'Sabado', value: 'Sab'}
     ]   
     return (
         <View>

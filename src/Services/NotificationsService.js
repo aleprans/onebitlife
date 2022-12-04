@@ -28,7 +28,7 @@ async function createNotification(
         }
     }else if(frequencyInput === "Semanal"){
         triggerNotification = {
-            weekDay: weekDay,
+            weekday: weekDay,
             repeats: true,
             minute: habitMinutes,
             hour: habitHour
@@ -43,4 +43,10 @@ async function createNotification(
         trigger: triggerNotification
     }).then((id)=> {console.log(id)})
 }
-export default { createNotification }
+
+async function deleteHabitNotification(habitInput){
+    await Notifications.cancelScheduledNotificationAsync(habitInput)
+    .then(()=>{console.log("Exclusão feita!")})
+}
+
+export default { createNotification, deleteHabitNotification }

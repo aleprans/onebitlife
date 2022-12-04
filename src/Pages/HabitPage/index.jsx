@@ -74,7 +74,7 @@ export default function HabitPage({ route }) {
                     timeNotification
                 )
             }
-            
+
             HabitsService.createHabit({
                 habitArea: habit?.habitArea,
                 habitName: habitInput,
@@ -86,8 +86,8 @@ export default function HabitPage({ route }) {
                 daysWithOutChecks: 0, 
                 progressBar: 1 
             })
-            .then((id)=>{
-                Alert.alert(`Sucesso na criação do hábito! ${id}`)
+            .then(()=>{
+                Alert.alert(`Sucesso na criação do hábito!`)
                 navigation.navigate("Home", {
                     createHabit: `Created in ${habit?.habitArea}`
                 })

@@ -2,7 +2,7 @@ import db from "../DataBase";
 
 db.transaction((tx) => {
     tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS change_navigation (id INTEGER PRIMARY KEY AUTOINCREMENT, showHome TEXT NOT NULL, appStartData TEXT NOT NULL);",
+        "CREATE TABLE IF NOT EXISTS change_navigation (id INTEGER PRIMARY KEY AUTOINCREMENT, showHome TEXT, appStartData TEXT);",
         // "DROP TABLE change_navigation;",
         [],
         (result,error) => {
