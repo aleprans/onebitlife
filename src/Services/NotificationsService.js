@@ -17,32 +17,30 @@ async function createNotification(
     if(dayNotification === 'Quinta'){weekDay = 5}
     if(dayNotification === 'Sexta'){weekDay = 6}
     if(dayNotification === 'Sabado'){weekDay = 7}
-}
 
-let triggerNotification
+    let triggerNotification
 
-if(frequencyInput === 'Diário'){
-    triggerNotification = {
-        hour: habitHour,
-        minute: habitMinutes,
-        repeats: true
+    if(frequencyInput === 'Diário'){
+        triggerNotification = {
+            hour: habitHour,
+            minute: habitMinutes,
+            repeats: true
+        }
+    }else if(frequencyInput === "Semanal"){
+        triggerNotification = {
+            weekDay: weekDay,
+            repeats: true,
+            minute: habitMinutes,
+            hour: habitHour
+        }
     }
-}else if(frequencyInput === "Semanal"){
-    triggerNotification = {
-        weekDay: weekDay,
-        repeats: true,
-        minute: habitMinutes,
-        hour: habitHour
-    }
+    await Notifications.scheduleNotificationAsync({
+        content: {
+            title: "Lembrete de Hábito",
+            body: `${habitInput}`
+        },
+        identifier: `${habitInput}`,
+        trigger: triggerNotification
+    }).then((id)=> {console.log(id)})
 }
-
-await Notifications.scheduleNotificationAsync({
-    content: {
-        title: "Lembrete de Hábito",
-        body: `${habitInput}`
-    },
-    identifier: `${habitInput}`,
-    trigger: triggerNotification
-}).then((id)=> {console.log(id)})
-
 export default { createNotification }

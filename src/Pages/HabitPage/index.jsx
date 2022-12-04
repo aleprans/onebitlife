@@ -10,6 +10,7 @@ import TimeDatePicker from "../../Compponents/HabitPage/DateTimePicker";
 import UpdateExcludeButton from "../../Compponents/HabitPage/UpdateExcludeButton";
 import DefaultButton from "../../Compponents/Common/DefaultButton";
 import HabitsService from '../../Services/HabitsService';
+import NotificationsService from '../../Services/NotificationsService';
 
 Notifications.setNotificationHandler({
     handleNotification: async() => ({
@@ -65,6 +66,15 @@ export default function HabitPage({ route }) {
                 "Você precisa dizer a frequência e o horário da notificação"
             )
         }else {
+            if(notificationToggle){
+                NotificationsService.createNotification(
+                    habitInput,
+                    frequencyInput,
+                    dayNotification,
+                    timeNotification
+                )
+            }
+            
             HabitsService.createHabit({
                 habitArea: habit?.habitArea,
                 habitName: habitInput,
