@@ -3,6 +3,7 @@ import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-na
 
 import { useNavigation }from '@react-navigation/native';
 import HabitsService from "../../../Services/HabitsService";
+import NotificationService from '../../../Services/NotificationsService';
 
 
 export default function UpdateExcludeButton({
