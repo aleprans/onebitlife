@@ -3,7 +3,12 @@ import { Image, StyleSheet, View } from "react-native";
 import { ProgressBar } from 'react-native-paper';
 
 
-export default function StatusBar(){
+export default function StatusBar({
+    mindHabit,
+    moneyHabit,
+    bodyHabit,
+    funHabit
+}){
     return(
         <View style={estilo.container}>
             <View estyle={estilo.statusBarContainer}>
@@ -11,7 +16,7 @@ export default function StatusBar(){
                     source={require('../../../assets/icons/educationIcon.png')}
                     style={estilo.icon}
                 />
-                <ProgressBar progress={1} color={'#90b7f3'} style={estilo.progress} />
+                <ProgressBar progress={mindHabit} color={'#90b7f3'} style={estilo.progress} />
             </View>
 
             <View estyle={estilo.statusBarContainer}>
@@ -19,7 +24,7 @@ export default function StatusBar(){
                     source={require('../../../assets/icons/moneyIcon.png')}
                     style={estilo.icon}
                 />
-                <ProgressBar progress={0} color={'#85bb65'} style={estilo.progress} />
+                <ProgressBar progress={moneyHabit} color={'#85bb65'} style={estilo.progress} />
             </View>
 
             <View estyle={estilo.statusBarContainer}>
@@ -27,7 +32,7 @@ export default function StatusBar(){
                     source={require('../../../assets/icons/bodyIcon.png')}
                     style={estilo.icon}
                 />
-                <ProgressBar progress={0} color={'#ff0043'} style={estilo.progress} />
+                <ProgressBar progress={bodyHabit} color={'#ff0043'} style={estilo.progress} />
             </View>
 
             <View estyle={estilo.statusBarContainer}>
@@ -35,7 +40,7 @@ export default function StatusBar(){
                     source={require('../../../assets/icons/funIcon.png')}
                     style={estilo.icon}
                 />
-                <ProgressBar progress={0} color={'#fe7f23'} style={estilo.progress} />
+                <ProgressBar progress={funHabit} color={'#fe7f23'} style={estilo.progress} />
             </View>
         </View>
     )

@@ -20,7 +20,7 @@ export default function EditHabit({habit, checkColor}){
     const textNotification = 
         habit?.habitNotificationTime === null
             ? `Sem notificação - ${habit?.habitFrequency}`
-            : `${habit?.habitFrequency} - ${habit?.habitNotificationFrequency} - ${habit?.habitNotificationTime} - `
+            : `Notificação ativa - ${habit?.habitNotificationFrequency} - ${habit?.habitNotificationTime}`
 
     return (
         <TouchableOpacity 
