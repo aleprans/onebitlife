@@ -1,10 +1,14 @@
-import React from "react";
-import { StyleSheet, TouchableOpacity, Text, View, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, TouchableOpacity, Text, View, Alert, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 export default function EditHabit({habit, checkColor}){
 
     const navigation = useNavigation()
+    const [habitCheck, setHabitCheck] = useState()
+    const [imageCheck, setImageCheck] = useState(
+        require('../../../assets/icons/Mind.png')
+    )
 
     function handleEdit(){
         navigation.navigate('HabitPage',{
@@ -14,8 +18,25 @@ export default function EditHabit({habit, checkColor}){
     }
 
     function handleCheck(){
-        console.log(`Botão de check da ${habit?.habitArea} `)
+        if(habitCheck === 0){
+            setHabitCheck(1)
+        }
     }
+
+    useEffect(()=>{
+        setHabitCheck(habit?.habIsChecked)
+        if(habit?.habitArea === "Finaceiro"){
+            setImageCheck(require('../../../assets/icons/Money.png'))
+        }
+        setHabitCheck(habit?.habIsChecked)
+        if(habit?.habitArea === "Corpo"){
+            setImageCheck(require('../../../assets/icons/Body.png'))
+        }
+        setHabitCheck(habit?.habIsChecked)
+        if(habit?.habitArea === "Humor"){
+            setImageCheck(require('../../../assets/icons/Fun.png'))
+        }
+    }),[]
 
     const textNotification = 
         habit?.habitNotificationTime === null
@@ -32,10 +53,17 @@ export default function EditHabit({habit, checkColor}){
                 <Text style={estilo.habitTitle}>{habit?.habitName}</Text>
                 <Text style={estilo.habitFrequancy}>{textNotification}</Text>
             </View>
-            <TouchableOpacity 
-                style={[estilo.check, {borderColor: checkColor}]}
-                onPress={handleCheck}
-            />
+            {habitCheck === 0 ? 
+                <TouchableOpacity 
+                    style={[estilo.check, {borderColor: checkColor}]}
+                    onPress={handleCheck}
+                /> : <TouchableOpacity 
+                    style={[estilo.check, {borderColor: checkColor}]}
+                    onPress={handleCheck}
+                    >
+                        <Image source={checkImage} style={estilo.checked} />
+                    </TouchableOpacity>
+            }
         </TouchableOpacity>
     )
 }
@@ -68,5 +96,10 @@ const estilo = StyleSheet.create({
         height: 20,
         borderWidth: 1,
         borderRadius: 10
+    },
+
+    checked: {
+        width: 25,
+        height: 25
     }
 })
