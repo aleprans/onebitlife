@@ -73,7 +73,7 @@ export default function EditHabit({habit, checkColor}){
                     style={[estilo.check, {borderColor: checkColor}]}
                     onPress={handleCheck}
                     >
-                        <Image source={checkImage} style={estilo.checked} />
+                        <Image source={imageCheck} style={estilo.checked} />
                     </TouchableOpacity>
             }
         </TouchableOpacity>

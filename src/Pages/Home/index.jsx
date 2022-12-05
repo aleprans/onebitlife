@@ -8,6 +8,7 @@ import CreateHabit from "../../Compponents/Home/CreateHabit";
 import EditHabit from "../../Compponents/Home/EditHabit";
 import ChangeNavigationService from '../../Services/ChangeNavigationService';
 import HabitsService from "../../Services/HabitsService";
+import CheckService from "../../Services/CheckService";
 
 export default function Home({ route }){
 
@@ -60,6 +61,10 @@ export default function Home({ route }){
     }
 
     const excludeArea = route.params?.excludeArea
+
+    useEffect(()=>{
+        CheckService.removeCheck(mindHabit, moneyHabit, bodyHabit, funHabit)
+    }),[mindHabit, moneyHabit, bodyHabit, funHabit]
 
     return(
         <View style={estilo.container}>
