@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableOpacity, Text, View, Alert, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
+import HabitService from '../../../Services/CheckService';
+import CheckService from "../../../Services/CheckService";
+
 export default function EditHabit({habit, checkColor}){
 
     const navigation = useNavigation()
@@ -9,6 +12,9 @@ export default function EditHabit({habit, checkColor}){
     const [imageCheck, setImageCheck] = useState(
         require('../../../assets/icons/Mind.png')
     )
+
+    const checkData = new Date()
+    const formatDate = `${checkData.getFullYear()}-${checkData.getMonth().toString().padStart(2, "0")}-${checkData.getDate().toString().padStart(2,"0")}}`
 
     function handleEdit(){
         navigation.navigate('HabitPage',{
@@ -19,7 +25,13 @@ export default function EditHabit({habit, checkColor}){
 
     function handleCheck(){
         if(habitCheck === 0){
-            setHabitCheck(1)
+            CheckService.checkHabit({
+                lastCheck: formatDate,
+                habitChecked: 1,
+                habitChecks: habit?.habitChecks + 1,
+                habitArea: habit?.habitArea
+        })
+        setHabitCheck(1)
         }
     }
 
