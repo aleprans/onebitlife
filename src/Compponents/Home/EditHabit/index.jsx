@@ -36,15 +36,15 @@ export default function EditHabit({habit, checkColor}){
     }
 
     useEffect(()=>{
-        setHabitCheck(habit?.habIsChecked)
+        setHabitCheck(habit?.habitIsChecked)
         if(habit?.habitArea === "Finaceiro"){
             setImageCheck(require('../../../assets/icons/Money.png'))
         }
-        setHabitCheck(habit?.habIsChecked)
+        setHabitCheck(habit?.habitIsChecked)
         if(habit?.habitArea === "Corpo"){
             setImageCheck(require('../../../assets/icons/Body.png'))
         }
-        setHabitCheck(habit?.habIsChecked)
+        setHabitCheck(habit?.habitIsChecked)
         if(habit?.habitArea === "Humor"){
             setImageCheck(require('../../../assets/icons/Fun.png'))
         }
@@ -69,12 +69,13 @@ export default function EditHabit({habit, checkColor}){
                 <TouchableOpacity 
                     style={[estilo.check, {borderColor: checkColor}]}
                     onPress={handleCheck}
-                /> : <TouchableOpacity 
-                    style={[estilo.check, {borderColor: checkColor}]}
+                />
+                :
+                <TouchableOpacity 
                     onPress={handleCheck}
-                    >
-                        <Image source={imageCheck} style={estilo.checked} />
-                    </TouchableOpacity>
+                >
+                    <Image source={imageCheck} style={estilo.checked} />
+                </TouchableOpacity>
             }
         </TouchableOpacity>
     )
