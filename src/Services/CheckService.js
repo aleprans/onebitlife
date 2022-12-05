@@ -16,6 +16,22 @@ const checkHabit = (obj) => {
     })
 }
 
+const removeCheckHabit = (obj) => {
+    return new Promise((resolve, reject)=>{
+        db.transaction((tx)=>{
+            tx.executeSql(
+                "UPDATE habits SET habitChecked = ?, WHERE habitArea = ?;",
+                [obj.habitIsChecked, obj.habitArea],
+                (_,{ rowsAffected })=>{
+                    if(rowsAffected > 0) resolve(rowsAffected)
+                    else reject("Error update Obj")
+                },
+                (_,error)=> reject(error)
+            )
+        })
+    })
+}
+
 export default {
-    checkHabit
+    checkHabit, removeCheckHabit
 }
